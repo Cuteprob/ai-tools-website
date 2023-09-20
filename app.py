@@ -8,13 +8,41 @@ from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
 
+app.jinja_env.globals.update(zip=zip)
+
 IMAGE_FOLDER = "static/images"
 CAT_FOLDER = os.path.join(IMAGE_FOLDER, "cat")
 DRAGON_FOLDER = os.path.join(IMAGE_FOLDER, "dragon")
 
-def get_random_image(folder):
+def get_random_image(folder,count):
     images = os.listdir(folder)
-    return random.choice(images)
+    return random.sample(images,count)
+
+
+
+# @app.route('/')
+# def index(category):
+#     return render_template('index.html')
+
+@app.route('/')
+def index():
+    cat_image_files = get_random_image(CAT_FOLDER,9)
+
+#     cat_image_path = url_for('static', filename='images/cat/' + cat_image_file)
+#     dragon_image_path = url_for('static', filename='images/dragon/' + dragon_image_file)
+    cat_image_paths = [url_for('static', filename=f'images/cat/{file}') for file in cat_image_files]
+
+    image_groups = [list(zip(cat_image_paths[i:i+3], cat_image_files[i:i+3])) for i in range(0, len(cat_image_files), 3)]
+
+
+
+#     return render_template('index.html', cat_image_path=cat_image_path, dragon_image_path=dragon_image_path,cat_image_file=cat_image_file)
+    return render_template('index.html',
+                       cat_image_paths=cat_image_paths,
+                       image_groups=image_groups,
+                       cat_image_files=cat_image_files
+
+                       )
 
 def create_pdf(image_path):
     output = "static/pdf_output/" + os.path.basename(image_path).replace('.jpg', '.pdf')
@@ -48,23 +76,6 @@ def create_pdf(image_path):
     c.save()
 
     return output
-
-
-# @app.route('/')
-# def index(category):
-#     return render_template('index.html')
-
-@app.route('/')
-def index():
-    cat_image_file = get_random_image(CAT_FOLDER)
-    dragon_image_file = get_random_image(DRAGON_FOLDER)
-
-    cat_image_path = url_for('static', filename='images/cat/' + cat_image_file)
-    dragon_image_path = url_for('static', filename='images/dragon/' + dragon_image_file)
-
-    return render_template('index.html', cat_image_path=cat_image_path, dragon_image_path=dragon_image_path,cat_image_file=cat_image_file)
-
-
 
 
 @app.route('/download/<category>/<image_file>')

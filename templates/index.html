@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Category</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
@@ -35,13 +40,26 @@
     AI Generate Coloring Pages For Kids & Adults (Free PDF Printables).This page includes all the coloring sheets found on this website in one place that is easy to navigate and will suit the interests of any child!
 </div>
 
-<div class="container">
-    <h2>Cat Image</h2>
-    <img src="{{ cat_image_path }}" alt="Cat" class="display-image">
-    <div>
-        <a href="{{ url_for('download_pdf', category='cat', image_file=cat_image_file) }}" class="button">Like,download as PDF</a>
-    </div>
-</div>
+<!--<div class="container">-->
+<!--    <h2>Cat Image</h2>-->
+<!--    <img src="{{ cat_image_path }}" alt="Cat" class="display-image">-->
+<!--    <div>-->
+<!--        <a href="{{ url_for('download_pdf', category='cat', image_file=cat_image_file) }}" class="button">Like,download as PDF</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="container">-->
+<!--    <h2>Cat Image</h2>-->
+
+<!--    <div class="row">-->
+<!--        {% for path, file in zip(cat_image_paths, cat_image_files) %}-->
+<!--        <div class="col-md-4">-->
+<!--            <img src="{{ path }}" alt="Cat Image" class="display-image">-->
+<!--            <a href="{{ url_for('download_pdf', category='cat', image_file=file) }}" class="button">Download</a>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+<!--</div>-->
 
 <div class="chat-container">
     <div class="chatbox">
@@ -56,7 +74,64 @@
     </div>
 </div>
 
+<div class="carousel-container">
+    <h2>Cat Image</h2>
+    <div class="carousel-wrapper">
+        {% for group in image_groups %}
+        <div class="carousel-slide"  style="display:none;">
+            <div class="row">
+                {% for image, title in group %}
+                <div class="col">
+                    <img src="{{ image }}" alt="{{ title }}" class="display-image">
+                    <h5>{{ title }}</h5>
+                    <a href="{{ url_for('download_pdf', category='cat', image_file=title) }}" class="button">Download as PDF</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button id="prevBtn" class="carousel-container.next-btn">Prev</button>
+    <button id="nextBtn" class="next-btn">Next</button>
+</div>
+
+
+
+
 <script>
+
+
+<!--轮播JS动效    -->
+let carouselWrapper = document.querySelector('.carousel-wrapper');
+let currentIndex = 0;
+const imageGroupsLength = {{ image_groups|length }};
+let slides = document.querySelectorAll('.carousel-slide');
+slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
+
+document.getElementById('prevBtn').addEventListener('click', function() {
+    slides[currentIndex].style.display = 'none';
+    currentIndex = (currentIndex - 1 + imageGroupsLength) % imageGroupsLength;
+    slides[currentIndex].style.display = 'block';
+});
+
+document.getElementById('nextBtn').addEventListener('click', function() {
+    slides[currentIndex].style.display = 'none';
+    currentIndex = (currentIndex + 1) % imageGroupsLength;
+    slides[currentIndex].style.display = 'block';
+});
+
+
+<!--轮播JS动效    -->
+
+
+
+function updateCarousel() {
+    let offset = -currentIndex * 100;
+    carouselWrapper.style.transform = `translateX(${offset}%)`;
+}
+
+
+
     const queryInput = document.getElementById('queryInput');
     const querySelect = document.getElementById('querySelect');
     const goButton = document.getElementById('goButton');
