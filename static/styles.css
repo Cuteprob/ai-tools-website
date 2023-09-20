@@ -1,0 +1,234 @@
+body {
+    font-family: 'Patrick Hand', cursive;
+    background-color: #FFDDCC;
+    color: #333;
+    /* 移除 flex 相关的属性 */
+    height: auto;  /* 从100vh更改为自动，以适应内容 */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start; /* 使导航栏开始于左侧 */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #FFAA88;
+    font-size: 20px; /* 增大字体大小 */
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    /*position: sticky;  !* 使导航栏始终粘在顶部 *!*/
+    /*top: 0;  !* 与视口的顶部对齐 *!*/
+    z-index: 1000;  /* 确保导航栏在其他元素之上 */
+}
+
+.navbar-logo {
+    height: 50px;
+    margin-right: 150px;  /* 或更多/更少，根据您的需要调整 */
+}
+
+.navbar-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+    color: #FF6644;
+}
+
+/* ... 其他样式 ... */
+
+/* 针对下拉菜单的样式 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 8px;
+    overflow: hidden;  /* 隐藏多余内容，并确保圆角效果 */
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #FF6644;
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.triangle-down {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 4px;  /* 三角形和文本之间的小间距 */
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333;  /* 三角形的颜色，这里设置为深灰色 */
+    vertical-align: middle;  /* 使三角形与文本垂直居中 */
+}
+
+/* 调整导航栏中链接的垂直对齐 */
+.navbar-links a {
+    vertical-align: middle;
+}
+
+.site-description {
+    text-align: center;
+    padding: 20px 40px;  /* 你可以根据需要调整内边距 */
+    font-size: 35px;     /* 你可以根据需要调整字体大小 */
+    color: #333;
+    /*background-color: #FFBB99; !* 这是一个浅色背景，但你可以选择其他颜色 *!*/
+    margin: 0px auto;  /* 添加外边距以提供一些空间 */
+    border-radius: 8px; /* 添加圆角 */
+    max-width: 40%;     /* 控制文本区块的最大宽度，你可以根据需要调整 */
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); !* 添加阴影效果 *!*/
+}
+
+.description-content{
+    text-align: center;
+    /*padding: 20px 40px;  !* 你可以根据需要调整内边距 *!*/
+    font-size: 25px;     /* 你可以根据需要调整字体大小 */
+    color: #333;
+    /*background-color: #FFBB99; !* 这是一个浅色背景，但你可以选择其他颜色 *!*/
+    margin: 0px auto;  /* 添加外边距以提供一些空间 */
+    border-radius: 8px; /* 添加圆角 */
+    max-width: 60%;     /* 控制文本区块的最大宽度，你可以根据需要调整 */
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); !* 添加阴影效果 *!*/
+}
+
+
+.container {
+    /* 移除 display: flex，让容器正常排列 */
+    text-align: center;
+    background-color: #FFAA88;
+    padding: 40px 60px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 50%;
+    min-width: 200px;
+    margin: 20px auto;  /* 添加一些外边距，尤其是顶部外边距，确保与导航栏有一定的间隙 */
+}
+
+.chat-container {
+    margin-top: 20px;
+    max-width: 50%; /* 设置与 container 相同的最大宽度 */
+    margin: 20px auto; /* 使 chat-container 居中 */
+}
+
+.chatbox {
+    display: flex;
+    align-items: center;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#queryInput {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    width: 100%; /* 设置输入框的宽度为 100% */
+}
+
+#goButton {
+    margin-left: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #FF6644;
+    color: #fff;
+}
+
+.message-box {
+    display: none;
+    background-color: #fff;  /* 更改背景颜色为白色，与聊天背景类似 */
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 添加阴影效果 */
+}
+
+
+.message {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    background-color: #FFDDCC;  /* 添加背景颜色，使其与页面背景有所区别 */
+    border-radius: 5px;  /* 圆角效果 */
+    margin: 5px;  /* 添加边距，使消息之间有空隙 */
+}
+
+.message:last-child {
+    border-bottom: none;
+}
+
+.message:hover {
+    background-color: #FFAA88;  /* 更改悬停效果的颜色 */
+}
+
+
+
+
+.icon-wrapper {
+    display: flex; /* 使图标并排显示 */
+    justify-content: center; /* 居中图标 */
+    align-items: center;
+    gap: 40px; /* 两个图标之间的间距 */
+}
+
+.icon {
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+    /*transition: transform 0.3s; !* 动画效果 *!*/
+}
+
+.icon:hover {
+    transform: scale(1.05);
+}
+
+.button {
+    background-color: #336699;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 10px;  /* 添加边距 */
+    text-decoration: none; /* 移除链接的下划线 */
+}
+
+.button:hover {
+    background-color: #FF6644;
+}
+
+.display-image {
+    max-width: 30%;   /* 调整为50%让图片不太大 */
+    margin: 20px auto;
+    display: block;
+}
+
+

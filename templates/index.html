@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Category</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" class="navbar-logo">
+    <div class="navbar-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <div class="dropdown">
+            <a href="#">Creating <span class="triangle-down"></span></a>
+            <div class="dropdown-content">
+                <a href="#project1">Project 1</a>
+                <a href="#project2">Project 2</a>
+                <a href="#project3">Project 3</a>
+                <!-- ... 其他项目 ... -->
+            </div>
+        </div>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+</div>
+
+<div class="site-description">
+    Text to AI Coloring Pages
+</div>
+
+<div class="description-content">
+    AI Generate Coloring Pages For Kids & Adults (Free PDF Printables).This page includes all the coloring sheets found on this website in one place that is easy to navigate and will suit the interests of any child!
+</div>
+
+<div class="container">
+    <h2>Cat Image</h2>
+    <img src="{{ cat_image_path }}" alt="Cat" class="display-image">
+    <div>
+        <a href="{{ url_for('download_pdf', category='cat', image_file=cat_image_file) }}" class="button">Like,download as PDF</a>
+    </div>
+</div>
+
+<div class="chat-container">
+    <div class="chatbox">
+        <input type="text" id="queryInput" placeholder="Enter a prompt here..." readonly>
+        <button id="goButton">Generate</button>
+    </div>
+    <div id="querySelect" class="message-box">
+        <div class="message" data-url="/link_for_question1">Question 1?</div>
+        <div class="message" data-url="/link_for_question2">Question 2?</div>
+        <div class="message" data-url="/link_for_question3">Question 3?</div>
+        <!-- ... 你可以根据需要添加更多问题 ... -->
+    </div>
+</div>
+
+<script>
+    const queryInput = document.getElementById('queryInput');
+    const querySelect = document.getElementById('querySelect');
+    const goButton = document.getElementById('goButton');
+
+    queryInput.addEventListener('click', function() {
+        querySelect.style.display = 'block';
+    });
+
+    querySelect.addEventListener('click', function(e) {
+        if (e.target.className === 'message') {
+            queryInput.value = e.target.innerText;
+            querySelect.style.display = 'none';
+            queryInput.dataset.url = e.target.dataset.url;
+        }
+    });
+
+    goButton.addEventListener('click', function() {
+        if (queryInput.dataset.url) {
+            window.location.href = queryInput.dataset.url;
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        const messageBox = document.getElementById('querySelect');
+        const queryInput = document.getElementById('queryInput');
+
+        // 如果点击的不是输入框和它的子元素，也不是问题列表和它的子元素，则隐藏问题列表
+        if (!queryInput.contains(e.target) && !messageBox.contains(e.target)) {
+            messageBox.style.display = 'none';
+        }
+    });
+
+
+
+</script>
+
+</body>
+</html>
