@@ -13,6 +13,8 @@ app.jinja_env.globals.update(zip=zip)
 IMAGE_FOLDER = "static/images"
 CAT_FOLDER = os.path.join(IMAGE_FOLDER, "cat")
 DRAGON_FOLDER = os.path.join(IMAGE_FOLDER, "dragon")
+POKEMON_FOLDER = os.path.join(IMAGE_FOLDER, "pokemon")
+MERMAID_FOLDER = os.path.join(IMAGE_FOLDER, "mermaid")
 
 def get_random_image(folder,count):
     images = os.listdir(folder)
@@ -26,22 +28,37 @@ def get_random_image(folder,count):
 
 @app.route('/')
 def index():
-    cat_image_files = get_random_image(CAT_FOLDER,9)
+    cat_image_files = get_random_image(CAT_FOLDER,15)
+    dragon_image_files = get_random_image(DRAGON_FOLDER,15)
+    pokemon_image_files = get_random_image(POKEMON_FOLDER,15)
+    mermaid_image_files = get_random_image(MERMAID_FOLDER,15)
 
 #     cat_image_path = url_for('static', filename='images/cat/' + cat_image_file)
 #     dragon_image_path = url_for('static', filename='images/dragon/' + dragon_image_file)
     cat_image_paths = [url_for('static', filename=f'images/cat/{file}') for file in cat_image_files]
+    dragon_image_paths = [url_for('static', filename=f'images/dragon/{file}') for file in dragon_image_files]
+    pokemon_image_paths = [url_for('static', filename=f'images/pokemon/{file}') for file in pokemon_image_files]
+    mermaid_image_paths = [url_for('static', filename=f'images/mermaid/{file}') for file in mermaid_image_files]
 
-    image_groups = [list(zip(cat_image_paths[i:i+3], cat_image_files[i:i+3])) for i in range(0, len(cat_image_files), 3)]
-
-
+    cat_image_groups = [list(zip(cat_image_paths[i:i+3], cat_image_files[i:i+3])) for i in range(0, len(cat_image_files), 3)]
+    dragon_image_groups = [list(zip(dragon_image_paths[i:i+3], dragon_image_files[i:i+3])) for i in range(0, len(dragon_image_files), 3)]
+    pokemon_image_groups = [list(zip(pokemon_image_paths[i:i+3], pokemon_image_files[i:i+3])) for i in range(0, len(pokemon_image_files), 3)]
+    mermaid_image_groups = [list(zip(mermaid_image_paths[i:i+3], mermaid_image_files[i:i+3])) for i in range(0, len(mermaid_image_files), 3)]
 
 #     return render_template('index.html', cat_image_path=cat_image_path, dragon_image_path=dragon_image_path,cat_image_file=cat_image_file)
     return render_template('index.html',
                        cat_image_paths=cat_image_paths,
-                       image_groups=image_groups,
-                       cat_image_files=cat_image_files
-
+                       cat_image_groups=cat_image_groups,
+                       cat_image_files=cat_image_files,
+                       dragon_image_paths=dragon_image_paths,
+                       dragon_image_groups=dragon_image_groups,
+                       dragon_image_files=dragon_image_files,
+                       pokemon_image_paths=pokemon_image_paths,
+                       pokemon_image_groups=pokemon_image_groups,
+                       pokemon_image_files=pokemon_image_files,
+                       mermaid_image_paths=mermaid_image_paths,
+                       mermaid_image_groups=mermaid_image_groups,
+                       mermaid_image_files=mermaid_image_files
                        )
 
 def create_pdf(image_path):
@@ -81,10 +98,10 @@ def create_pdf(image_path):
 @app.route('/download/<category>/<image_file>')
 def download_pdf(category, image_file):
 
-    if category not in ["cat", "dragon"]:
+    if category not in ["cat", "dragon","pokemon","mermaid"]:
         return redirect(url_for('index'))
 
-    image_path = os.path.join(CAT_FOLDER if category == "cat" else DRAGON_FOLDER, image_file)
+    image_path = os.path.join(CAT_FOLDER if category == "cat" else (POKEMON_FOLDER if category == "pokemon" else(MERMAID_FOLDER if category == "mermaid" else DRAGON_FOLDER)), image_file)
     print(image_path)
     pdf_path = create_pdf(image_path)
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Category</title>
+    <title>Coloring Pages:pokemon,mermaid,cat,dragon-AI Coloring Pages</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -21,10 +21,11 @@
         <div class="dropdown">
             <a href="#">Creating <span class="triangle-down"></span></a>
             <div class="dropdown-content">
-                <a href="#project1">Project 1</a>
-                <a href="#project2">Project 2</a>
-                <a href="#project3">Project 3</a>
-                <!-- ... 其他项目 ... -->
+                <a href="#">pokemon coloring pages</a>
+                <a href="#">mermaid coloring pages</a>
+                <a href="#">cat coloring pages</a>
+                <a href="#">dragon coloring pages</a>
+
             </div>
         </div>
         <a href="#">About</a>
@@ -40,26 +41,6 @@
     AI Generate Coloring Pages For Kids & Adults (Free PDF Printables).This page includes all the coloring sheets found on this website in one place that is easy to navigate and will suit the interests of any child!
 </div>
 
-<!--<div class="container">-->
-<!--    <h2>Cat Image</h2>-->
-<!--    <img src="{{ cat_image_path }}" alt="Cat" class="display-image">-->
-<!--    <div>-->
-<!--        <a href="{{ url_for('download_pdf', category='cat', image_file=cat_image_file) }}" class="button">Like,download as PDF</a>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="container">-->
-<!--    <h2>Cat Image</h2>-->
-
-<!--    <div class="row">-->
-<!--        {% for path, file in zip(cat_image_paths, cat_image_files) %}-->
-<!--        <div class="col-md-4">-->
-<!--            <img src="{{ path }}" alt="Cat Image" class="display-image">-->
-<!--            <a href="{{ url_for('download_pdf', category='cat', image_file=file) }}" class="button">Download</a>-->
-<!--        </div>-->
-<!--        {% endfor %}-->
-<!--    </div>-->
-<!--</div>-->
 
 <div class="chat-container">
     <div class="chatbox">
@@ -67,18 +48,62 @@
         <button id="goButton">Generate</button>
     </div>
     <div id="querySelect" class="message-box">
-        <div class="message" data-url="/link_for_question1">Question 1?</div>
-        <div class="message" data-url="/link_for_question2">Question 2?</div>
-        <div class="message" data-url="/link_for_question3">Question 3?</div>
+        <div class="message" data-url="/link_for_question1">pokemon coloring pages</div>
+        <div class="message" data-url="/link_for_question2">mermaid coloring pages</div>
+        <div class="message" data-url="/link_for_question3">cat coloring pages</div>
+        <div class="message" data-url="/link_for_question3">dragon coloring pages</div>
+
         <!-- ... 你可以根据需要添加更多问题 ... -->
     </div>
 </div>
 
 <div class="carousel-container">
-    <h2>Cat Image</h2>
+    <h2>Pokemon coloring pages</h2>
     <div class="carousel-wrapper">
-        {% for group in image_groups %}
-        <div class="carousel-slide"  style="display:none;">
+        {% for group in pokemon_image_groups %}
+        <div class="pokemon_carousel-slide"  style="display:none;">
+            <div class="row">
+                {% for image, title in group %}
+                <div class="col">
+                    <img src="{{ image }}" alt="{{ title }}" class="display-image">
+                    <h5>{{ title }}</h5>
+                    <a href="{{ url_for('download_pdf', category='pokemon', image_file=title) }}" class="button">Download as PDF</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button id="prevBtn2" class="carousel-container.next-btn">Prev</button>
+    <button id="nextBtn2" class="next-btn">Next</button>
+</div>
+
+<div class="carousel-container">
+    <h2>Mermaid coloring pages</h2>
+    <div class="carousel-wrapper">
+        {% for group in mermaid_image_groups %}
+        <div class="mermaid_carousel-slide"  style="display:none;">
+            <div class="row">
+                {% for image, title in group %}
+                <div class="col">
+                    <img src="{{ image }}" alt="{{ title }}" class="display-image">
+                    <h5>{{ title }}</h5>
+                    <a href="{{ url_for('download_pdf', category='mermaid', image_file=title) }}" class="button">Download as PDF</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button id="prevBtn3" class="carousel-container.next-btn">Prev</button>
+    <button id="nextBtn3" class="next-btn">Next</button>
+</div>
+
+<div class="carousel-container">
+    <h2>Cat coloring pages</h2>
+    <div class="carousel-wrapper">
+        {% for group in cat_image_groups %}
+        <div class="cat_carousel-slide"  style="display:none;">
             <div class="row">
                 {% for image, title in group %}
                 <div class="col">
@@ -95,6 +120,26 @@
     <button id="nextBtn" class="next-btn">Next</button>
 </div>
 
+<div class="carousel-container">
+    <h2>Dragon coloring pages</h2>
+    <div class="carousel-wrapper">
+        {% for group in dragon_image_groups %}
+        <div class="dragon_carousel-slide"  style="display:none;">
+            <div class="row">
+                {% for image, title in group %}
+                <div class="col">
+                    <img src="{{ image }}" alt="{{ title }}" class="display-image">
+                    <h5>{{ title }}</h5>
+                    <a href="{{ url_for('download_pdf', category='dragon', image_file=title) }}" class="button">Download as PDF</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button id="prevBtn1" class="carousel-container.next-btn">Prev</button>
+    <button id="nextBtn1" class="next-btn">Next</button>
+</div>
 
 
 
@@ -104,23 +149,65 @@
 <!--轮播JS动效    -->
 let carouselWrapper = document.querySelector('.carousel-wrapper');
 let currentIndex = 0;
-const imageGroupsLength = {{ image_groups|length }};
-let slides = document.querySelectorAll('.carousel-slide');
-slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
+const imageGroupsLength = {{ cat_image_groups|length }};
+
+let cat_slides = document.querySelectorAll('.cat_carousel-slide');
+let dragon_slides = document.querySelectorAll('.dragon_carousel-slide');
+let pokemon_slides = document.querySelectorAll('.pokemon_carousel-slide');
+let mermaid_slides = document.querySelectorAll('.mermaid_carousel-slide');
+
+cat_slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
+dragon_slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
+pokemon_slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
+mermaid_slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
 
 document.getElementById('prevBtn').addEventListener('click', function() {
-    slides[currentIndex].style.display = 'none';
+    cat_slides[currentIndex].style.display = 'none';
     currentIndex = (currentIndex - 1 + imageGroupsLength) % imageGroupsLength;
-    slides[currentIndex].style.display = 'block';
+    cat_slides[currentIndex].style.display = 'block';
 });
 
 document.getElementById('nextBtn').addEventListener('click', function() {
-    slides[currentIndex].style.display = 'none';
+    cat_slides[currentIndex].style.display = 'none';
     currentIndex = (currentIndex + 1) % imageGroupsLength;
-    slides[currentIndex].style.display = 'block';
+    cat_slides[currentIndex].style.display = 'block';
 });
 
+document.getElementById('prevBtn1').addEventListener('click', function() {
+    dragon_slides[currentIndex].style.display = 'none';
+    currentIndex = (currentIndex - 1 + imageGroupsLength) % imageGroupsLength;
+    dragon_slides[currentIndex].style.display = 'block';
+});
 
+document.getElementById('nextBtn1').addEventListener('click', function() {
+    dragon_slides[currentIndex].style.display = 'none';
+    currentIndex = (currentIndex + 1) % imageGroupsLength;
+    dragon_slides[currentIndex].style.display = 'block';
+});
+
+document.getElementById('prevBtn2').addEventListener('click', function() {
+    pokemon_slides[currentIndex].style.display = 'none';
+    currentIndex = (currentIndex - 1 + imageGroupsLength) % imageGroupsLength;
+    pokemon_slides[currentIndex].style.display = 'block';
+});
+
+document.getElementById('nextBtn2').addEventListener('click', function() {
+    pokemon_slides[currentIndex].style.display = 'none';
+    currentIndex = (currentIndex + 1) % imageGroupsLength;
+    pokemon_slides[currentIndex].style.display = 'block';
+});
+
+document.getElementById('prevBtn3').addEventListener('click', function() {
+    mermaid_slides[currentIndex].style.display = 'none';
+    currentIndex = (currentIndex - 1 + imageGroupsLength) % imageGroupsLength;
+    mermaid_slides[currentIndex].style.display = 'block';
+});
+
+document.getElementById('nextBtn3').addEventListener('click', function() {
+    mermaid_slides[currentIndex].style.display = 'none';
+    currentIndex = (currentIndex + 1) % imageGroupsLength;
+    mermaid_slides[currentIndex].style.display = 'block';
+});
 <!--轮播JS动效    -->
 
 
@@ -132,37 +219,35 @@ function updateCarousel() {
 
 
 
-    const queryInput = document.getElementById('queryInput');
-    const querySelect = document.getElementById('querySelect');
-    const goButton = document.getElementById('goButton');
-
-    queryInput.addEventListener('click', function() {
-        querySelect.style.display = 'block';
-    });
-
-    querySelect.addEventListener('click', function(e) {
-        if (e.target.className === 'message') {
-            queryInput.value = e.target.innerText;
-            querySelect.style.display = 'none';
-            queryInput.dataset.url = e.target.dataset.url;
-        }
-    });
-
-    goButton.addEventListener('click', function() {
-        if (queryInput.dataset.url) {
-            window.location.href = queryInput.dataset.url;
-        }
-    });
-
-    document.addEventListener('click', function(e) {
-        const messageBox = document.getElementById('querySelect');
-        const queryInput = document.getElementById('queryInput');
-
-        // 如果点击的不是输入框和它的子元素，也不是问题列表和它的子元素，则隐藏问题列表
-        if (!queryInput.contains(e.target) && !messageBox.contains(e.target)) {
-            messageBox.style.display = 'none';
-        }
-    });
+    // const queryInput = document.getElementById('queryInput');
+    // const querySelect = document.getElementById('querySelect');
+    // const goButton = document.getElementById('goButton');
+    //
+    // queryInput.addEventListener('click', function() {
+    //     querySelect.style.display = 'block';
+    // });
+    //
+    // querySelect.addEventListener('click', function(e) {
+    //     if (e.target.className === 'message') {
+    //         queryInput.value = e.target.innerText;
+    //         querySelect.style.display = 'none';
+    //         queryInput.dataset.url = e.target.dataset.url;
+    //     }
+    // });
+    //
+    // goButton.addEventListener('click', function() {
+    //     if (queryInput.dataset.url) {
+    //         window.location.href = queryInput.dataset.url;
+    //     }
+    // });
+    //
+    // document.addEventListener('click', function(e) {
+    //     const messageBox = document.getElementById('querySelect');
+    //     const queryInput = document.getElementById('queryInput');
+    //     if (!queryInput.contains(e.target) && !messageBox.contains(e.target)) {
+    //         messageBox.style.display = 'none';
+    //     }
+    // });
 
 
 
