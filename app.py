@@ -108,4 +108,4 @@ def download_pdf(category, image_file):
     return send_from_directory('static/pdf_output', os.path.basename(pdf_path), as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=80)
