@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FHTKPPZRG8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-FHTKPPZRG8');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coloring Pages:pokemon,mermaid,cat,dragon-AI Coloring Pages</title>
@@ -53,7 +62,7 @@
         <div class="message" data-url="/link_for_question3">cat coloring pages</div>
         <div class="message" data-url="/link_for_question3">dragon coloring pages</div>
 
-        <!-- ... 你可以根据需要添加更多问题 ... -->
+        <!-- ...  ... -->
     </div>
 </div>
 
@@ -146,7 +155,7 @@
 <script>
 
 
-<!--轮播JS动效    -->
+<!--    -->
 let carouselWrapper = document.querySelector('.carousel-wrapper');
 let currentIndex = 0;
 const imageGroupsLength = {{ cat_image_groups|length }};
@@ -156,10 +165,10 @@ let dragon_slides = document.querySelectorAll('.dragon_carousel-slide');
 let pokemon_slides = document.querySelectorAll('.pokemon_carousel-slide');
 let mermaid_slides = document.querySelectorAll('.mermaid_carousel-slide');
 
-cat_slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
-dragon_slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
-pokemon_slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
-mermaid_slides[currentIndex].style.display = 'block'; // 默认显示第一个slide
+cat_slides[currentIndex].style.display = 'block'; // 
+dragon_slides[currentIndex].style.display = 'block'; // 
+pokemon_slides[currentIndex].style.display = 'block'; // 
+mermaid_slides[currentIndex].style.display = 'block'; // 
 
 document.getElementById('prevBtn').addEventListener('click', function() {
     cat_slides[currentIndex].style.display = 'none';
@@ -208,7 +217,7 @@ document.getElementById('nextBtn3').addEventListener('click', function() {
     currentIndex = (currentIndex + 1) % imageGroupsLength;
     mermaid_slides[currentIndex].style.display = 'block';
 });
-<!--轮播JS动效    -->
+<!--    -->
 
 
 
